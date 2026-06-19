@@ -38,15 +38,14 @@ def main():
 
     seconds = float(input("Offset seconds: ").strip())
     milliseconds = float(input("Offset milliseconds: ").strip())
-
     offset_ms = int(round(seconds * 1000 + milliseconds))
 
     original = path.read_text(encoding="utf-8", errors="replace")
     updated = shift_srt_text(original, offset_ms)
 
-    out_path = path.with_name(path.stem + f"_shifted_{offset_ms}ms" + path.suffix)
-    out_path.write_text(updated, encoding="utf-8", errors="replace")
-    print(f"Saved: {out_path}")
+    # overwrite the original file
+    path.write_text(updated, encoding="utf-8", errors="replace")
+    print("Overwritten:", path)
 
 if __name__ == "__main__":
     main()
